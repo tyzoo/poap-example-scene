@@ -1,0 +1,9 @@
+package-lock.json
+*.js
+node_modules
+bin
+lib
+dist
+.DS_Store
+package-lock.json
+docs
