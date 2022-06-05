@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "dcldash": "^0.0.33",
-    "zootools": "^0.0.69"
+    "zootools": "^0.0.70"
   },
   "bundledDependencies": [
     "dcldash",
