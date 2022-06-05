@@ -71,6 +71,11 @@ export class POAPBoothSpawner {
 		);
 		engine.addEntity(booth);
 		this.booth_number++;
+		onRealmChangedObservable.add(async () => {
+			const realm = await getCurrentRealm();
+			if(!realm) return;
+			booth.setRealm(realm);
+		})
 		return booth;
 	}
 }
