@@ -5,17 +5,13 @@
     "strict": true,
     "noLib": false,
     "paths": {
-      "@dcl/ecs-scene-utils": [
-        "./node_modules/@dcl/ecs-scene-utils/dist/index.d.ts"
-      ],
       "dcldash": [
-        "./node_modules/dcldash/dist/index.d.ts"
+        "./node_modules/dcldash/dist/index.d.ts",
+        "node_modules/dcldash/dist/index.d.ts"
       ],
       "zootools": [
-        "./node_modules/zootools/dist/index.d.ts"
-      ],
-      "dclconnect": [
-        "./node_modules/dclconnect/dist/index.d.ts"
+        "./node_modules/zootools/dist/index.d.ts",
+        "node_modules/zootools/dist/index.d.ts"
       ]
     },
     "baseUrl": "."

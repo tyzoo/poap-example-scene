@@ -1,17 +1,18 @@
 import { AlertSystem, POAPBooth } from 'zootools';
 import { getCurrentRealm, Realm } from '@decentraland/EnvironmentAPI';
 import { getUserData, UserData } from '@decentraland/Identity';
+import { signedFetch } from '@decentraland/SignedFetch';
 
 /**
  *  NOTE:
 
 	Ensure your project has the appropriate dependencies..run:
 
-		npm install -g dclconnect @dcl/ecs-scene-utils dcldash@latest zootools@latest 
+		npm install -b dcldash@latest zootools@latest 
 
 	Bring in the ./poap_assets/ folder into your projects root directory
 	
-	Also, refrence the tsconfig.json in this file compared to your own
+	Also, reference the tsconfig.json in this file compared to your own
  */
 
 /**
@@ -37,23 +38,16 @@ export class POAPBoothSpawner {
 		executeTask(async () => {
 			//If you ALSO use these user data functions elsewhere in your app
 			//you may need to refactor to only use them once time each.
-			// i.e. if you receive error, "cannot read property getUserData of undefined"
+			// i.e. if you receive error, "cannot read property getUserData of undefined..etc"
 			this.userData = await getUserData();
 			this.realm = await getCurrentRealm();
-			this.onInit();
+			this.props.booths.forEach(booth=> {
+				this.spawn(
+					booth.event_id, 
+					booth.transformArgs,
+				);
+			})
 		})
-	}
-	/**
-	 * Spawn the POAP booths once we are initialized
-	 */
-	private onInit(): void {
-		this.props.booths.forEach(booth=> {
-			this.spawn(
-				booth.event_id, 
-				booth.transformArgs,
-			);
-		})
-
 	}
 	private spawn(
 		event_id: number,
@@ -61,18 +55,20 @@ export class POAPBoothSpawner {
 		wrapTexturePath: string = "poap_assets/images/wrap1.png"
 	): POAPBooth {
 		const booth = new POAPBooth({
-			transformArgs,
-			wrapTexturePath
-		},
-		{
-			event_id,
-			booth_number: this.booth_number,
-			property: this.props.property,
-			api_key: this.props.api_key,
-			userData: this.userData!,
-			realm: this.realm!,
-		},
-		alertSystem);
+				transformArgs,
+				wrapTexturePath
+			},
+			{
+				event_id,
+				booth_number: this.booth_number,
+				property: this.props.property,
+				api_key: this.props.api_key,
+				userData: this.userData!,
+				realm: this.realm!,
+			},
+			alertSystem,
+			signedFetch,
+		);
 		engine.addEntity(booth);
 		this.booth_number++;
 		return booth;

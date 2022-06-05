@@ -22,15 +22,11 @@
     "yarn": "please use npm"
   },
   "dependencies": {
-    "@dcl/ecs-scene-utils": "^1.7.5",
-    "dclconnect": "^0.5.15",
     "dcldash": "^0.0.33",
-    "zootools": "^0.0.57"
+    "zootools": "^0.0.69"
   },
   "bundledDependencies": [
-    "dclconnect",
     "dcldash",
-    "zootools",
-    "@dcl/ecs-scene-utils"
+    "zootools"
   ]
 }
